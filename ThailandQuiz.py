@@ -39,10 +39,10 @@ def blankInQuizString(blank,question_number):
 def validNumbOfTries():
     while True:
         try:
-        	number = int(raw_input("How many tires would you like?: "))
-        	return int(number)
+        	number = int(raw_input("How many tries would you like?: "))
+        	return abs(int(number))
         except ValueError:
-            print "Not a valid response, please try again" 
+            print "Not a valid response, please type a postive integer" 
 
 # slects answer key
 def answerKey(quizLevel):
@@ -67,9 +67,9 @@ def CheckAnswer(quizLevel):
 		replacement = blankInQuizString(blank,question_number)
 		userAnswer = raw_input("What should be substituted for: " + replacement + " ").lower()
 		if userAnswer == answerKey(quizLevel)[currentQuestionIndex]:
-			# blank = blank.replace(replacement, userAnswer)
-			# replaced.append(blank)
-			# replaced =" ".join(replaced)
+			blank = blank.replace(replacement, userAnswer)
+			replaced.append(blank)
+			replaced =" ".join(replaced)
 			print replaced
 			currentQuestionIndex += 1
 		else:
