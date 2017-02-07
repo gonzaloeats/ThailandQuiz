@@ -19,23 +19,6 @@ answer_easy = ["bangkok", "khosan", "monarchy", "red"]
 answer_medium = ["watt", "siam", "malaysia", "baht"]
 answer_hard = ["condensed", "glutinous", "galangal", "aroy"]
 
-
-
-
-# user selects the quiz level they want to play, user input is converted to lowercase and if value isn't valid it cycles the function until valid
-
-# quizLevel = raw_input("Please select game level by typing easy, medium, or hard: ").lower()
-# while True:
-#         if quizLevel == "easy":
-#             return quizLevel
-#         if quizLevel == "medium":
-#             return quizLevel
-#         if quizLevel == "hard":
-#             return quizLevel
-#         else:
-#             print "Not a valid response, please try again" 
-#             return quizSelector()
-
 # just prints out quiz based on what quizSelector assigns to variable quizLevel
 def printQuiz(quizLevel):
     if quizLevel == "easy":
@@ -52,6 +35,15 @@ def blankInQuizString(blank,question_number):
             return num
     return None
 
+#validates user imput for number of tires
+def validNumbOfTries():
+    while True:
+        try:
+        	number = int(raw_input("How many tires would you like?: "))
+        	return int(number)
+        except ValueError:
+            print "Not a valid response, please try again" 
+
 # slects answer key
 def answerKey(quizLevel):
 	if quizLevel == "easy":
@@ -62,22 +54,23 @@ def answerKey(quizLevel):
 		return answer_hard
 		
 # Checks answer and keeps track of attempts as well as current question
-# then print if you have won or lost
-def CheckAnswer(answerKey):
-	# replaced =[]
-	# quizString = quizString.split()
+# prints if you have won or lost
+def CheckAnswer(quizLevel):
+	replaced =[]
+	quizString = printQuiz(quizLevel)
+	quizString = quizString.split()
 	currentQuestionIndex = 0
-	numberOfAttempts = 3
+	numberOfAttempts = validNumbOfTries()
+	print printQuiz(quizLevel)
 	while numberOfAttempts > 0 and currentQuestionIndex <=3:
-		print printQuiz(quizLevel)
 		blank = question_number[currentQuestionIndex]
 		replacement = blankInQuizString(blank,question_number)
-		userAnswer = raw_input("What should be substituted for: " + replacement + " ")
-		if userAnswer == answer_easy[currentQuestionIndex]:
-			blank = blank.replace(replacement, userAnswer)
+		userAnswer = raw_input("What should be substituted for: " + replacement + " ").lower()
+		if userAnswer == answerKey(quizLevel)[currentQuestionIndex]:
+			# blank = blank.replace(replacement, userAnswer)
 			# replaced.append(blank)
 			# replaced =" ".join(replaced)
-			# print replaced
+			print replaced
 			currentQuestionIndex += 1
 		else:
 			numberOfAttempts -= 1
@@ -96,49 +89,34 @@ print """
    | | | | | | (_| | | | (_| | | | | (_| | | |_| | |_| | |/ /|_|
    |_| |_| |_|\__,_|_|_|\__,_|_| |_|\__,_|  \__\_\\__,_|_/___(_)
                                                                 """
-replaced = []
-quizLevel = raw_input("Please select game level by typing easy, medium, or hard: ").lower()
-# while True:
-#         if quizLevel == "easy":
-#             return quizLevel
-#         if quizLevel == "medium":
-#             return quizLevel
-#         if quizLevel == "hard":
-#             return quizLevel
-#         else:
-#             print "Not a valid response, please try again" 
-#             return quizSelector()
-	# quizString = printQuiz(quizSelector())
-	# #quizString = printQuiz(quizSelector())
-	# print quizString
-	# quizString = quizString.split()
-	# CheckAnswer(answerKey)
-	# for blank in quizString:
-	# # 	replacement = blankInQuizString(blank,question_number)
-	# #	if replacement != None:
-	# # 		user_input = raw_input("What should be substituted for: " + replacement + " ")
-	# 		blank = blank.replace(replacement, user_input)
-	# 		replaced.append(blank)
-	# 	else:
-	# 		replaced.append(blank)
-	# replaced = " ".join(replaced)
-	# return replaced
-	#correctAnswer = 0
-	# while correctAnswer >5:
-	# 	if#print the question to user and ask for answer:
-	# 		return #fill in the blank
-	# 	else:
-	# 		print "You win!!!!!!!!"
+#replaced = []
+
+# user selects the quiz level they want to play, user input is converted to lowercase and if value isn't valid it cycles the function until valid
+
+def quizSelector():
+    quizLevel = raw_input("Please select game level by typing easy, medium, or hard: ").lower()
+    while True:
+        if quizLevel == "easy":
+            return quizLevel
+        if quizLevel == "medium":
+            return quizLevel
+        if quizLevel == "hard":
+            return quizLevel
+        else:
+            print "Not a valid response, please try again" 
+            return quizSelector()
+
+quizLevel = quizSelector()
 
 def playGame():
-	print printQuiz(quizLevel)
-	print answerKey(quizLevel)
+	#print printQuiz(quizLevel)
+	#print list(answerKey(quizLevel))
 	print CheckAnswer(quizLevel)
 
 print playGame()
 
 
+# Things to do:
+# appending replacment word everytime user imput is correct
 
-## setting quizLevel as a golbal variable helped tremendously 
-#all that is left is creating an answer key basked on quizLevel
-#also appending the replacment work everytime user imput is correct
+
