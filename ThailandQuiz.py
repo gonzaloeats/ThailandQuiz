@@ -56,9 +56,9 @@ def answerKey(quizLevel):
 # Checks answer and keeps track of attempts as well as current question
 # prints if you have won or lost
 def CheckAnswer(quizLevel):
-	replaced =[]
 	quizString = printQuiz(quizLevel)
 	quizString = quizString.split()
+	replaced =[]
 	currentQuestionIndex = 0
 	numberOfAttempts = validNumbOfTries()
 	print printQuiz(quizLevel)
@@ -69,7 +69,7 @@ def CheckAnswer(quizLevel):
 		if userAnswer == answerKey(quizLevel)[currentQuestionIndex]:
 			blank = blank.replace(replacement, userAnswer)
 			replaced.append(blank)
-			replaced =" ".join(replaced)
+			replaced =" ".join(replaced).title()
 			print replaced
 			currentQuestionIndex += 1
 		else:
