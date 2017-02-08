@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Strings questions for game play 
+# String questions for game play 
 easyQuiz = '''___1___ is the capital of Thailand. If you find yourself there you might end up partying on ___2___ road. 
 Thailand is a constitutional ___3___ with a rich and colorful history. The Thai flag
 is colored ___4___ , white, and blue. '''
@@ -14,32 +14,28 @@ have a delicious ingredient know as Thai ginger but also knows locally as, ___3_
 # Strings to search for in string questions 
 question_number  = ["___1___", "___2___", "___3___", "___4___"]
 
-# Strings that provide answer keys
+# Strings for answer keys
 answer_easy = ["bangkok", "khosan", "monarchy", "red"]
 answer_medium = ["watt", "siam", "malaysia", "baht"]
 answer_hard = ["condensed", "glutinous", "galangal", "aroy"]
 
-# just prints out quiz based on what quizSelector assigns to variable quizLevel
+# prints out quiz based on what quizSelector assigns to variable quizLevel
 def printQuiz(quizLevel):
     if quizLevel == "easy":
         return easyQuiz
     if quizLevel == "medium":
         return mediumQuiz
     if quizLevel == "hard":
-        return hardQuiz
-
-# find blanks that need to be replaced in the quiz string
-def blankInQuizString(blank,question_number):
-    for num in question_number:
-        if num in blank:
-            return num
-    return None
+        return hardQuiz                                       
 
 #validates user imput for number of tires
 def validNumbOfTries():
     while True:
         try:
-        	number = int(raw_input("How many tries would you like?: "))
+        	number = int(raw_input("How many attempts would you like?: "))
+        	if number < 0:
+        		print "Sorry, you must provide a postive number, try again"
+        		continue
         	return abs(int(number))
         except ValueError:
             print "Not a valid response, please type a postive integer" 
@@ -54,32 +50,31 @@ def answerKey(quizLevel):
 		return answer_hard
 		
 # Checks answer and keeps track of attempts as well as current question
+# prints quiz with you current correct answers
 # prints if you have won or lost
-def CheckAnswer(quizLevel):
-	quizString = printQuiz(quizLevel)
-	quizString = quizString.split()
-	replaced =[]
-	currentQuestionIndex = 0
-	numberOfAttempts = validNumbOfTries()
-	print printQuiz(quizLevel)
-	while numberOfAttempts > 0 and currentQuestionIndex <=3:
-		blank = question_number[currentQuestionIndex]
-		replacement = blankInQuizString(blank,question_number)
-		userAnswer = raw_input("What should be substituted for: " + replacement + " ").lower()
-		if userAnswer == answerKey(quizLevel)[currentQuestionIndex]:
-			blank = blank.replace(replacement, userAnswer)
-			replaced.append(blank)
-			replaced =" ".join(replaced).title()
-			print replaced
-			currentQuestionIndex += 1
-		else:
-			numberOfAttempts -= 1
-			print "Wrong answer, try again. You have " + str(numberOfAttempts) + " attempts left"
-	else:
-		if numberOfAttempts == 0:
-			print "Game Over"
-		else:
-			print "You win!!!"
+def playGame(quizLevel):
+    replaced =[]
+    quizString = printQuiz(quizLevel)
+    replaced = quizString
+    currentQuestionIndex = 0
+    numberOfAttempts = validNumbOfTries()
+    print printQuiz(quizLevel)
+    while numberOfAttempts > 0 and currentQuestionIndex <=3:
+        replacement = question_number[currentQuestionIndex]
+        userAnswer = raw_input("\nWhat should be substituted for: " + replacement + " ").lower()
+        if userAnswer == answerKey(quizLevel)[currentQuestionIndex]:
+            quizString = quizString.replace(replacement,userAnswer)
+            print "\n" + quizString
+            currentQuestionIndex += 1
+        else:
+            numberOfAttempts -= 1
+            print "\nWrong answer, try again. You have " + str(numberOfAttempts) + " attempts left"
+            print "\n" + quizString
+    else:
+        if numberOfAttempts == 0:
+            return "\nGame Over"
+        else:
+            return "\nYou Won!!!"
 
 
 print """
@@ -89,10 +84,8 @@ print """
    | | | | | | (_| | | | (_| | | | | (_| | | |_| | |_| | |/ /|_|
    |_| |_| |_|\__,_|_|_|\__,_|_| |_|\__,_|  \__\_\\__,_|_/___(_)
                                                                 """
-#replaced = []
 
 # user selects the quiz level they want to play, user input is converted to lowercase and if value isn't valid it cycles the function until valid
-
 def quizSelector():
     quizLevel = raw_input("Please select game level by typing easy, medium, or hard: ").lower()
     while True:
@@ -107,16 +100,5 @@ def quizSelector():
             return quizSelector()
 
 quizLevel = quizSelector()
-
-def playGame():
-	#print printQuiz(quizLevel)
-	#print list(answerKey(quizLevel))
-	print CheckAnswer(quizLevel)
-
-print playGame()
-
-
-# Things to do:
-# appending replacment word everytime user imput is correct
-
-
+	
+print playGame(quizLevel)
