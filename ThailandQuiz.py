@@ -5,18 +5,18 @@ easyQuiz = '''___1___ is the capital of Thailand. If you find yourself there you
 Thailand is a constitutional ___3___ with a rich and colorful history. The Thai flag
 is colored ___4___ , white, and blue. '''
 
-mediumQuiz = '''A ___1___ is a type of Buddhist temple, before 1939 Thailand was called ___2___. ___3___ borders 
+mediumQuiz = '''A ___1___ is a type of Buddhist temple. Before 1939 Thailand was called ___2___. ___3___ borders 
 Thailand in the South. You'll want to make sure you have enough ___4___ during your stay to buy souvenirs. '''
 
-hardQuiz = '''Mango and sticky rice is made of ___1___ milk and ___2___ rice, it's a favorite desert all over the country. Thai soups and curry
-have a delicious ingredient know as Thai ginger but also knows locally as, ___3___ . You will be eating a lot of tasty food, remember to say ___4___ if you find it particularly delicious!'''
+hardQuiz = '''Mango and sticky rice is made of ___1___ milk and ___2___ rice, it's a favorite dessert all over the country. Thai soups and curry
+have a delicious ingredient know as Thai ginger but also knows locally as ___3___ . You will be eating a lot of tasty food, remember to say ___4___ if you find it particularly delicious!'''
 
 # Strings to search for in string questions 
 question_number  = ["___1___", "___2___", "___3___", "___4___"]
 
 # Strings for answer keys
 answer_easy = ["bangkok", "khosan", "monarchy", "red"]
-answer_medium = ["watt", "siam", "malaysia", "baht"]
+answer_medium = ["wat", "siam", "malaysia", "baht"]
 answer_hard = ["condensed", "glutinous", "galangal", "aroy"]
 
 # prints out quiz based on what quizSelector assigns to variable quizLevel
@@ -34,11 +34,11 @@ def validNumbOfTries():
         try:
         	number = int(raw_input("How many attempts would you like?: "))
         	if number <= 0:
-        		print "Sorry, you must provide a postive integer, try again"
+        		print "Sorry, you must provide a positive integer, try again"
         		continue
-        	return abs(int(number))
+        	return number
         except ValueError:
-            print "Not a valid response, please type a postive integer" 
+            print "Not a valid response, please type a positive integer" 
 
 # slects answer key
 def answerKey(quizLevel):
