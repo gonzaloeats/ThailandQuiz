@@ -33,8 +33,8 @@ def validNumbOfTries():
     while True:
         try:
         	number = int(raw_input("How many attempts would you like?: "))
-        	if number < 0:
-        		print "Sorry, you must provide a postive number, try again"
+        	if number <= 0:
+        		print "Sorry, you must provide a postive integer, try again"
         		continue
         	return abs(int(number))
         except ValueError:
@@ -53,9 +53,7 @@ def answerKey(quizLevel):
 # prints quiz with you current correct answers
 # prints if you have won or lost
 def playGame(quizLevel):
-    replaced =[]
-    quizString = printQuiz(quizLevel)
-    replaced = quizString
+    replaced = printQuiz(quizLevel)
     currentQuestionIndex = 0
     numberOfAttempts = validNumbOfTries()
     print printQuiz(quizLevel)
@@ -63,13 +61,13 @@ def playGame(quizLevel):
         replacement = question_number[currentQuestionIndex]
         userAnswer = raw_input("\nWhat should be substituted for: " + replacement + " ").lower()
         if userAnswer == answerKey(quizLevel)[currentQuestionIndex]:
-            quizString = quizString.replace(replacement,userAnswer)
-            print "\n" + quizString
+            replaced = replaced.replace(replacement,userAnswer)
+            print "\n" + replaced
             currentQuestionIndex += 1
         else:
             numberOfAttempts -= 1
             print "\nWrong answer, try again. You have " + str(numberOfAttempts) + " attempts left"
-            print "\n" + quizString
+            print "\n" + replaced
     else:
         if numberOfAttempts == 0:
             return "\nGame Over"
